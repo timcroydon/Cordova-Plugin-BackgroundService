@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
+xmlns:android="http://schemas.android.com/apk/res/android"
+           id="com.red_folder.phonegap.plugin.backgroundservice"
+      version="0.1.0">
+
+    <name>BackgroundService</name>
+    <description>Cordova Geolocation Plugin</description>
+    <license>MIT</license>
+    <keywords>cordova,background,service</keywords>
+
+    <!-- android -->
+    <platform name="android">
+
+        <config-file target="res/xml/config.xml" parent="/*">
+            <feature name="BackgroundServicePlugin">
+                <param name="android-package" value="com.red_folder.phonegap.plugin.backgroundservice.BackgroundServicePlugin"/>
+            </feature>
+        </config-file>
+
+        <config-file target="AndroidManifest.xml" parent="/*">
+            <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+        </config-file>
+        
+        <config-file target="AndroidManifest.xml" parent="/manifest/application">
+            
+            <!--
+<service android:name="com.yournamespace.yourappname.MyService">
+    <intent-filter>         
+        <action android:name="com.yournamespace.yourappname.MyService"/> 
+    </intent-filter>     
+</service>-->
+            <receiver android:name="com.red_folder.phonegap.plugin.backgroundservice.BootReceiver">
+                <intent-filter>
+                    <action android:name="android.intent.action.BOOT_COMPLETED"></action>
+                </intent-filter>
+            </receiver>
+        </config-file>
+
+        <source-file src="backgroundserviceplugin-3.0.0.jar" target-dir="libs"/>
+        <asset src="backgroundService-3.0.0.js" target="js/backgroundService-3.0.0.js" />
+    
+    </platform>
+
+</plugin>
